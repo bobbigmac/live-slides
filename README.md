@@ -1,32 +1,10 @@
-# Meteor Project Boilerplate
+# Live-Slides
 
-Simple meteor boilerplate for starting any new Meteor web project. Has a simple folder structure for server, client, prep functions and user/model/router config.
+Add powerpoint-esque slides, reactively, by multiple collobarative users and animate between them.
 
-## Contains packages:
+## TODO:
 
-* meteor-platform
-* less
-* iron:router
-* accounts-password
-* ian:accounts-ui-bootstrap-3
-* momentjs:moment
-* alanning:roles
-* ongoworks:security
-* twbs:bootstrap
-
-Have configured basic bootstrap nav, and security permissions on Meteor.users to allow registration via password, editing of the user's own profile fields and removal of their account.
-
-All new signups are assigned role of 'basic'. May also be assigned 'admin' user. Insecure and autopublish are removed. The meteor standard counter++ application is included.
-
-Search codebase for TODO to see any notes to proceed with building a project from this boilerplate.
-
-## Notes
-
-Project is intended to be as simple as practically possible, just clone and go, a good starting point for any new project. 
-
-Aim is to have simply documents, users, roles, permissions, routes and bootstrap UI.
-
-There are [more complex boilerplate projects](https://github.com/matteodem/meteor-boilerplate#other-awesome-boilerplates) around. I'm not interested in typing lots of cli commands just to get started on a boilerplate.
+Everything, just a stub right now.
 
 ## Suggestions
 

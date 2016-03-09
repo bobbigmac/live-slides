@@ -1,4 +1,34 @@
+
 <template name="home">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+	<h1>Welcome to Live-Slides</h1>
+  {{> presentations this.presentations}}
+</template>
+
+<template name="presentations">
+	{{#each this}}
+		{{> presentationTitle this}}
+	{{/each}}
+</template>
+
+<template name="presentationTitle">
+	<h3>
+		<a href="/{{_id}}">
+			<small class="pull-right">{{momentCreatedAgo}}</small>
+			<span>{{either title _id}}</span>
+		</a>
+	</h3>
+</template>
+
+<template name="slides">
+	Some slides for this presentation.
+</template>
+
+<template name="presentationDetail">
+	Some details about this presentation.
+</template>
+
+<template name="presentation">
+	{{> presentationTitle presentation}}
+	{{> presentationDetail presentation}}
+	{{> slides slides}}
 </template>

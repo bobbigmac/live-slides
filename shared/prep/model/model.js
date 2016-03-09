@@ -1,3 +1,3 @@
-//Games = new Mongo.Collection('games');
 
-//TODO: Add collections here
+Presentations = new Mongo.Collection('presentations');
+Slides = new Mongo.Collection('slides');

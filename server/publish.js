@@ -1,22 +1,36 @@
-//TODO: Publish some collections
 
-/*
+Meteor.publish('slides', function(presentation) {
+	presentation = (presentation instanceof String && presentation.length) || false;
 
-Meteor.publish('games', function(param1, param2) {
-	if(!this.userId) {
-		//anonymous user
-		return Games.find({ 'public': true });
+	if(presentation) {
+		return Slides.find({ presentation: presentation });
 	}
-	else if(Roles.userIsInRole(this.userId, ['basic', 'admin']) && _id) {
-		return Games.find({ 
-			'$or': [
-				{ 'public': true }, 
-				{ owner: this.userId }
-			]
-		});
-	}
-	this.stop();
+
+	this.ready();
 	return;
 });
 
-*/
+Meteor.publish('presentations', function(ids) {
+	ids = (ids instanceof Array && ids.length && ids) || [];
+
+		var filter = {
+			$or: [
+				{ open: true },
+			]
+		};
+
+		if(this.userId) {
+			filter['$or'].push({ owner: this.userId });
+		}
+
+		if(ids.length) {
+			filter._id = {
+				$in: ids
+			}
+		}
+
+		return Presentations.find(filter, { sort: { created: -1 }});
+
+	this.ready();
+	return;
+});

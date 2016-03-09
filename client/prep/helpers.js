@@ -6,6 +6,10 @@ Handlebars.registerHelper('brand', function() {
 	return Session.get('brand-name');
 });
 
+Handlebars.registerHelper('either', function(a, b) {
+	return a || b;
+});
+
 Handlebars.registerHelper('log', function(a) {
 	console.log(a);
 });

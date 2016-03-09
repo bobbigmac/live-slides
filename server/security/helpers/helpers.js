@@ -1,5 +1,43 @@
 //SEE https://github.com/ongoworks/meteor-security
 
+Security.defineMethod("removePresentationSlides", {
+  fetch: [],
+  deny: function (type, arg, userId, doc) {
+    Slides.remove({ presentation: doc.presentation });
+    
+    return false;
+  }
+});
+
+Security.defineMethod("ifPresentationExists", {
+  fetch: [],
+  deny: function (type, arg, userId, doc) {
+    return !(doc.presentation && Presentations.findOne({
+      _id: doc.presentation,
+    }));
+  }
+});
+
+Security.defineMethod("ifUserOwnsPresentation", {
+  fetch: [],
+  deny: function (type, arg, userId, doc) {
+    return !(doc.presentation && Presentations.findOne({
+      _id: doc.presentation,
+      owner: userId
+    }));
+  }
+});
+
+Security.defineMethod("ifPresentationIsOpen", {
+  fetch: [],
+  deny: function (type, arg, userId, doc) {
+    return !(doc.presentation && Presentations.findOne({
+      _id: doc.presentation,
+      open: true
+    }));
+  }
+});
+
 Security.defineMethod("ownerIsLoggedInUser", {
   fetch: [],
   deny: function (type, arg, userId, doc) {
