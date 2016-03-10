@@ -16,3 +16,12 @@ Template.nav.events({
 		});
 	}
 });
+
+// EditableText.registerCallbacks({
+// 	configureNewSlide: function(doc, collection) {
+// 		doc.owner = Meteor.userId();
+// 		//doc.presentation = 
+// 		console.log(this, doc, collection);
+// 		return doc;
+// 	}
+// });

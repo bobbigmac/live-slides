@@ -19,16 +19,42 @@
 	</h3>
 </template>
 
+<template name="slide">
+	<div class="slide-container">
+		{{> editableText 
+				context=this
+				collection="slides" 
+				field="content"
+				removeEmpty=true
+				textarea=true
+				autoInsert=true
+				placeholder="Slide content"
+				wysiwyg=false}}
+	</div>
+</template>
+
 <template name="slides">
-	Some slides for this presentation.
+	{{#each this}}
+		{{> slide this}}
+	{{/each}}
 </template>
 
 <template name="presentationDetail">
-	Some details about this presentation.
+	<h3>
+		{{> editableText 
+				context=presentation
+				collection="presentations" 
+				field="title" 
+				title="Name this presentation"
+				placeholder="Name this presentation"
+				options=bootstrapifyLarge }}
+	</h3>
 </template>
 
 <template name="presentation">
-	{{> presentationTitle presentation}}
 	{{> presentationDetail presentation}}
-	{{> slides slides}}
+	<div class="slides-container">
+		{{> slides slides}}
+		{{> slide extra}}
+	</div>
 </template>

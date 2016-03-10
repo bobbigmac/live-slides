@@ -1,7 +1,6 @@
 
 Meteor.publish('slides', function(presentation) {
-	presentation = (presentation instanceof String && presentation.length) || false;
-
+	presentation = (typeof presentation == 'string' && presentation.length && presentation) || false;
 	if(presentation) {
 		return Slides.find({ presentation: presentation });
 	}
@@ -13,24 +12,24 @@ Meteor.publish('slides', function(presentation) {
 Meteor.publish('presentations', function(ids) {
 	ids = (ids instanceof Array && ids.length && ids) || [];
 
-		var filter = {
-			$or: [
-				{ open: true },
-			]
-		};
+	var filter = {
+		$or: [
+			{ open: true },
+		]
+	};
 
-		if(this.userId) {
-			filter['$or'].push({ owner: this.userId });
+	if(this.userId) {
+		filter['$or'].push({ owner: this.userId });
+	}
+
+	if(ids.length) {
+		filter._id = {
+			$in: ids
 		}
+	}
 
-		if(ids.length) {
-			filter._id = {
-				$in: ids
-			}
-		}
+	return Presentations.find(filter, { sort: { created: -1 }});
 
-		return Presentations.find(filter, { sort: { created: -1 }});
-
-	this.ready();
-	return;
+	// this.ready();
+	// return;
 });

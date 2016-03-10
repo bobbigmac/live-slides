@@ -13,3 +13,17 @@ Handlebars.registerHelper('either', function(a, b) {
 Handlebars.registerHelper('log', function(a) {
 	console.log(a);
 });
+
+Handlebars.registerHelper('bootstrapify', function() {
+	return {
+		//'class': 'input-group',
+		'inputClass': 'form-control input-lg'
+	}
+});
+
+Handlebars.registerHelper('bootstrapifyLarge', function() {
+	return {
+		//'class': 'input-group',
+		'inputClass': 'form-control input-lg'
+	}
+});
