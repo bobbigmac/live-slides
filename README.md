@@ -1,6 +1,6 @@
 # Live-Slides
 
-Add powerpoint-esque slides, reactively, by multiple collobarative users and animate between them.
+Add powerpoint-esque slides, reactively, by multiple collaborative users and animate between them.
 
 ## TODO:
 
