@@ -20,25 +20,11 @@
 </template>
 
 <template name="slide">
-	{{#if editMode}}
-		<section class="slide-container">
-			{{> editableText 
-					context=this
-					collection="slides" 
-					field="content"
-					removeEmpty=true
-					textarea=true
-					autoInsert=true
-					placeholder="Slide content"
-					title="Edit the slide content"
-					userCanEdit=editMode
-					wysiwyg=false}}
-		</section>
-	{{else}}
-		<section class="slide-container" 
-			data-markdown data-content={{this.content}}>
-		</section>
-	{{/if}}
+	<section class="slide-container">
+{{#markdown}}
+{{this.content}}
+{{/markdown}}
+	</section>
 </template>
 
 <template name="slides">
@@ -50,15 +36,13 @@
 </template>
 
 <template name="presentationDetail">
-	<h3>
-		{{> editableText 
-				context=presentation
-				collection="presentations" 
-				field="title" 
-				title="Name this presentation"
-				placeholder="Name this presentation"
-				options=bootstrapifyLarge }}
-	</h3>
+	{{> editableText 
+			context=presentation
+			collection="presentations" 
+			field="title" 
+			title="Name this presentation"
+			placeholder="Name this presentation"
+			options=bootstrapifyLarge }}
 </template>
 
 <template name="presentation">

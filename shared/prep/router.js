@@ -47,5 +47,16 @@ Router.route('/:presentation', {
 		slides.push(newSlide);
 		
 		return { presentation: presentation, slides: slides };
+	},
+	onAfterAction: function() {
+		//Rerender the reveal deck
+		window.setTimeout(function() {
+			try {
+				Reveal.slide();
+			} catch(exc) {
+				//Known issue
+				//console.log(exc);
+			}
+		}, 20);
 	}
 });

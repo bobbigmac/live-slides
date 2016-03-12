@@ -22,8 +22,8 @@ var revealSettings = {
     //{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
 
     // Interpret Markdown in <section> elements
-    { src: 'client-libs/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-    { src: 'client-libs/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    // { src: 'client-libs/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    // { src: 'client-libs/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 
     // Syntax highlight for <code> elements
     //{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
@@ -41,6 +41,7 @@ Template.presentation.onRendered(function() {
 		if(typeof RevealMarkdown != 'undefined') {
 			window.setTimeout(function() {
 				RevealMarkdown.initialize(revealSettings);
+				Reveal.sync();
 			}, 10);
 		}
 	};
