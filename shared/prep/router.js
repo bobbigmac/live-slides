@@ -40,12 +40,12 @@ Router.route('/:presentation', {
 		var slides = Slides.find({ presentation: this.params.presentation }, { sort: { created: -1 }});
 
 		Session.set('page-title', slides.count()+' slides: ' + (presentation && presentation.title));
-		//slides = slides.fetch();
+		slides = slides.fetch();
 
 		//Default/new slide
 		var newSlide = { content: 'New slide', presentation: presentation && presentation._id, owner: Meteor.userId() };
-		//slides.push(newSlide);
+		slides.push(newSlide);
 		
-		return { presentation: presentation, slides: slides, extra: newSlide };
+		return { presentation: presentation, slides: slides };
 	}
 });

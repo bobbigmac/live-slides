@@ -1,15 +1,34 @@
+@import "client-css/reveal/night.css";
+
+body {
+	background-color: black;
+	color: white;
+}
 .slides-container {
 	position: fixed;
-	// top: 140px;
-	// bottom: 0;
+	top: 30px;
+	bottom: 0;
 	right: 0;
 	left: 0;
+	textarea {
+		color: white;
+		background-color: black;	
+	}
 	.slide-container {
-		// color: white;
-		// background-color: black;
+		color: white;
+		background-color: black;
+
 		text-align: center;
-		vertical-align: middle;
 		font-size: 2em;
 		height: 100%;
+		.editable-text {
+	    display: block;
+	    unicode-bidi: embed;
+	    font-family: monospace;
+	    white-space: pre;
+		}
+		textarea {
+			height: 100%;
+		}
 	}
 }

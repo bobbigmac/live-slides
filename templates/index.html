@@ -20,23 +20,33 @@
 </template>
 
 <template name="slide">
-	<div class="slide-container">
-		{{> editableText 
-				context=this
-				collection="slides" 
-				field="content"
-				removeEmpty=true
-				textarea=true
-				autoInsert=true
-				placeholder="Slide content"
-				wysiwyg=false}}
-	</div>
+	{{#if editMode}}
+		<section class="slide-container">
+			{{> editableText 
+					context=this
+					collection="slides" 
+					field="content"
+					removeEmpty=true
+					textarea=true
+					autoInsert=true
+					placeholder="Slide content"
+					title="Edit the slide content"
+					userCanEdit=editMode
+					wysiwyg=false}}
+		</section>
+	{{else}}
+		<section class="slide-container" 
+			data-markdown data-content={{this.content}}>
+		</section>
+	{{/if}}
 </template>
 
 <template name="slides">
-	{{#each this}}
-		{{> slide this}}
-	{{/each}}
+	<div class="slides">
+		{{#each this}}
+			{{> slide this}}
+		{{/each}}
+	</div>
 </template>
 
 <template name="presentationDetail">
@@ -52,9 +62,7 @@
 </template>
 
 <template name="presentation">
-	{{> presentationDetail presentation}}
-	<div class="slides-container">
+	<div class="reveal slides-container">
 		{{> slides slides}}
-		{{> slide extra}}
 	</div>
 </template>
