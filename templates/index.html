@@ -19,7 +19,21 @@
 	</h3>
 </template>
 
-<template name="slide">
+<template name="urlSlide">
+	<section class="slide-container">
+		<div class="hidden">{{this.url}}</div>
+		<iframe src={{this.url}}></iframe>
+	</section>
+</template>
+
+<template name="imageSlide">
+	<section class="slide-container">
+		<div class="hidden">{{this.image}}</div>
+		<img src={{this.image}} />
+	</section>
+</template>
+
+<template name="contentSlide">
 	<section class="slide-container">
 		{{#if editMode}}
 			{{> editableText 
@@ -32,6 +46,7 @@
 					placeholder="Slide content"
 					title="Edit the slide content"
 					userCanEdit=editMode
+					onStartEditing="refreshSlide"
 					wysiwyg=false}}
 		{{else}}
 			<div class="start-edit">
@@ -46,7 +61,15 @@
 <template name="slides">
 	<div class="slides">
 		{{#each this}}
-			{{> slide this}}
+			{{#if this.content}}
+				{{> contentSlide this}}
+			{{/if}}
+			{{#if this.url}}
+				{{> urlSlide this}}
+			{{/if}}
+			{{#if this.image}}
+				{{> imageSlide this}}
+			{{/if}}
 		{{/each}}
 	</div>
 </template>

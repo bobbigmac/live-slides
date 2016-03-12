@@ -1,12 +1,12 @@
 
 
-Template.slide.events({
+Template.contentSlide.events({
 	'dblclick .start-edit': function() {
 		Session.set('editMode', true);
 	}
 });
 
-Template.slide.helpers({
+Template.contentSlide.helpers({
 	'editMode': function() {
 		return Session.get('editMode');
 	},

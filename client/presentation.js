@@ -38,6 +38,12 @@ var followPresentation = function(id, presentation) {
 	}
 };
 
+EditableText.registerCallbacks({
+	'refreshSlide': function() {
+		Reveal.slide();
+	}
+});
+
 var refreshReveal = function(id, fields) {
 	window.setTimeout(function() {
 		Reveal.sync();
