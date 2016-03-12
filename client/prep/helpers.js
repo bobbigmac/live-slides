@@ -10,6 +10,14 @@ Handlebars.registerHelper('either', function(a, b) {
 	return a || b;
 });
 
+Handlebars.registerHelper('editIcon', function(a) {
+	return (Session.get('editMode') ? 'edit' : 'pencil')
+});
+
+Handlebars.registerHelper('editMode', function(a) {
+	return Session.get('editMode');
+});
+
 Handlebars.registerHelper('log', function(a) {
 	console.log(a);
 });

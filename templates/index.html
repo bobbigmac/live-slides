@@ -21,9 +21,23 @@
 
 <template name="slide">
 	<section class="slide-container">
+		{{#if editMode}}
+			{{> editableText 
+					context=this
+					collection="slides" 
+					field="content"
+					removeEmpty=true
+					textarea=true
+					autoInsert=true
+					placeholder="Slide content"
+					title="Edit the slide content"
+					userCanEdit=editMode
+					wysiwyg=false}}
+		{{else}}
 {{#markdown}}
 {{this.content}}
 {{/markdown}}
+		{{/if}}
 	</section>
 </template>
 

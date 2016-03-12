@@ -33,27 +33,31 @@ var revealSettings = {
 	]
 };
 
+var refreshReveal = function() {
+	window.setTimeout(function() {
+		Reveal.sync();
+	}, 10);
+};
+
 Template.presentation.onRendered(function() {
 	//See https://github.com/hakimel/reveal.js#instructions
 	Reveal.initialize(revealSettings);
 
-	var refreshMarkdown = function() {
-		if(typeof RevealMarkdown != 'undefined') {
-			window.setTimeout(function() {
-				RevealMarkdown.initialize(revealSettings);
-				Reveal.sync();
-			}, 10);
-		}
-	};
-
 	Slides.find().observeChanges({
-		added: refreshMarkdown,
-		changed: refreshMarkdown,
-		removed: refreshMarkdown
+		added: refreshReveal,
+		changed: refreshReveal,
+		removed: refreshReveal
 	});
 
 	Reveal.addEventListener('slidechanged', function(event) {
 		//TODO: Update any remotes
 		//console.log('slide changed', event);
 	});
+});
+
+Template.nav.events({
+	'click .toggle-edit': function() {
+		Session.set('editMode', !Session.get('editMode'));
+		refreshReveal();
+	}
 });
