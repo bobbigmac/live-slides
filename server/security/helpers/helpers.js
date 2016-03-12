@@ -41,6 +41,7 @@ Security.defineMethod("ifPresentationIsOpen", {
 Security.defineMethod("ownerIsLoggedInUser", {
   fetch: [],
   deny: function (type, arg, userId, doc) {
+    //console.log(userId, doc);
     return userId !== doc.owner;
   }
 });

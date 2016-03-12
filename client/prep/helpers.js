@@ -6,16 +6,28 @@ Handlebars.registerHelper('brand', function() {
 	return Session.get('brand-name');
 });
 
+Handlebars.registerHelper('isOwner', function(a) {
+	return a === Meteor.userId();
+});
+
 Handlebars.registerHelper('either', function(a, b) {
 	return a || b;
 });
 
-Handlebars.registerHelper('editIcon', function(a) {
+Handlebars.registerHelper('editIcon', function() {
 	return (Session.get('editMode') ? 'edit' : 'pencil')
 });
 
-Handlebars.registerHelper('editMode', function(a) {
+Handlebars.registerHelper('editMode', function() {
 	return Session.get('editMode');
+});
+
+Handlebars.registerHelper('followIcon', function() {
+	return (!Session.get('hold-follow') ? 'pause' : 'play');
+});
+
+Handlebars.registerHelper('followMode', function() {
+	return !Session.get('hold-follow');
 });
 
 Handlebars.registerHelper('log', function(a) {

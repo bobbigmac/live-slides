@@ -9,9 +9,9 @@ Template.newSlide.events({
 	'click .prep-slide': function(event) {
 		var type = $(event.target).attr('data-type');
 		if(type) {
-			console.log(type, this);
+			//console.log(type, this);
 			this[type] = defaultTexts[type];
-			console.log(type, this);
+			//console.log(type, this);
 			if(!this._id) {
 				Slides.insert(this);
 			} else {
@@ -25,7 +25,9 @@ Template.newSlide.events({
 
 Template.contentSlide.events({
 	'dblclick .start-edit': function() {
-		Session.set('editMode', true);
+		if(this.owner == Meteor.userId()) {
+			Session.set('editMode', true);
+		}
 	}
 });
 

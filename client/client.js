@@ -8,7 +8,7 @@ Template.nav.events({
 		var newPresentation = { title: 'Default new presentation'};
 		Presentations.insert(newPresentation, function(error, presentationId) {
 			if(!error) {
-				console.log(presentationId);
+				//console.log(presentationId);
 				Router.go('presentation', { presentation: presentationId })
 			} else {
 				console.log('Could not insert new presentation', error);

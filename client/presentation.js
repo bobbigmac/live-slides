@@ -91,5 +91,9 @@ Template.nav.events({
 	'click .toggle-edit': function() {
 		Session.set('editMode', !Session.get('editMode'));
 		refreshReveal();
+	},
+	'click .toggle-follow': function() {
+		Session.set('hold-follow', !Session.get('hold-follow'));
+		//refreshReveal();
 	}
 });

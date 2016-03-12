@@ -16,21 +16,22 @@ Meteor.publish('presentations', function(ids) {
 	};
 
 	if(!ids) {
-		filter['$or'] = filter['$or'] || [];
-		filter['$or'].push({ open: true });
+		// filter['$or'] = filter['$or'] || [];
+		// filter['$or'].push({ open: true });
 	}
 
-	if(this.userId && !ids.length) {
-		filter['$or'] = filter['$or'] || [];
-		filter['$or'].push({ owner: this.userId });
-	}
+	// if(this.userId && !ids.length) {
+	// 	filter['$or'] = filter['$or'] || [];
+	// 	filter['$or'].push({ owner: this.userId });
+	// }
 
 	if(ids.length) {
 		filter._id = {
 			$in: ids
-		}
+		};
 	}
 
+	//console.log(ids, filter)
 	return Presentations.find(filter, { sort: { created: -1 }});
 
 	// this.ready();
