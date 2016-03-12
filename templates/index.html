@@ -19,17 +19,54 @@
 	</h3>
 </template>
 
+<template name="newSlide">
+	<section class="slide-container">
+		<h4>New Slide&hellip;</h4>
+		<p><a class="prep-slide" data-type="content">Content</a></p>
+		<p><a class="prep-slide" data-type="url">IFrame</a></p>
+		<p><a class="prep-slide" data-type="image">Image</a></p>
+	</section>
+</template>
+
 <template name="urlSlide">
 	<section class="slide-container">
-		<div class="hidden">{{this.url}}</div>
-		<iframe src={{this.url}}></iframe>
+		{{#if editMode}}
+			{{> editableText 
+					context=this
+					collection="slides" 
+					field="url"
+					removeEmpty=true
+					textarea=true
+					autoInsert=true
+					useMethods=false
+					placeholder="Set a link to a website"
+					title="Set a link to a website"
+					userCanEdit=editMode
+					onStartEditing="refreshSlide"}}
+		{{else}}
+			<iframe src={{this.url}}></iframe>
+		{{/if}}
 	</section>
 </template>
 
 <template name="imageSlide">
 	<section class="slide-container">
-		<div class="hidden">{{this.image}}</div>
-		<img src={{this.image}} />
+		{{#if editMode}}
+			{{> editableText 
+					context=this
+					collection="slides" 
+					field="image"
+					removeEmpty=true
+					textarea=true
+					autoInsert=true
+					useMethods=false
+					placeholder="Set a link to an image"
+					title="Set a link to an image"
+					userCanEdit=editMode
+					onStartEditing="refreshSlide"}}
+		{{else}}
+			<img src={{this.image}} />
+		{{/if}}
 	</section>
 </template>
 
@@ -43,11 +80,11 @@
 					removeEmpty=true
 					textarea=true
 					autoInsert=true
+					useMethods=false
 					placeholder="Slide content"
 					title="Edit the slide content"
 					userCanEdit=editMode
-					onStartEditing="refreshSlide"
-					wysiwyg=false}}
+					onStartEditing="refreshSlide"}}
 		{{else}}
 			<div class="start-edit">
 {{#markdown}}
@@ -63,12 +100,16 @@
 		{{#each this}}
 			{{#if this.content}}
 				{{> contentSlide this}}
-			{{/if}}
-			{{#if this.url}}
-				{{> urlSlide this}}
-			{{/if}}
-			{{#if this.image}}
-				{{> imageSlide this}}
+			{{else}}
+				{{#if this.url}}
+					{{> urlSlide this}}
+				{{else}}
+					{{#if this.image}}
+						{{> imageSlide this}}
+					{{else}}
+						{{> newSlide this}}
+					{{/if}}
+				{{/if}}
 			{{/if}}
 		{{/each}}
 	</div>

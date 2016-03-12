@@ -37,14 +37,17 @@ Router.route('/:presentation/:slide?', {
 	},
 	data: function() {
 		var presentation = Presentations.findOne({ _id: this.params.presentation });
-		var slides = Slides.find({ presentation: this.params.presentation }, { sort: { created: -1 }});
+		var slides = Slides.find({ presentation: this.params.presentation }, { sort: { order: 1, created: 1 }});
 
 		Session.set('page-title', slides.count()+' slides: ' + (presentation && presentation.title));
 		slides = slides.fetch();
 
-		//Default/new slide
-		var newSlide = { content: 'New slide', presentation: presentation && presentation._id, owner: Meteor.userId() };
-		slides.push(newSlide);
+		var owner = (presentation && presentation.owner);
+		if(Meteor.userId() == owner) {
+			//Default/new slide
+			var newSlide = { presentation: presentation && presentation._id, owner: Meteor.userId() };
+			slides.push(newSlide);
+		}
 		
 		return { presentation: presentation, slides: slides };
 	},

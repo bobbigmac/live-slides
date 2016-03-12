@@ -47,6 +47,7 @@ EditableText.registerCallbacks({
 var refreshReveal = function(id, fields) {
 	window.setTimeout(function() {
 		Reveal.sync();
+		Reveal.slide();
 	}, 10);
 };
 
