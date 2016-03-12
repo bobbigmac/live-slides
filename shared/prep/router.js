@@ -26,7 +26,7 @@ Router.route('/', {
 	}
 });
 
-Router.route('/:presentation', {
+Router.route('/:presentation/:slide?', {
 	name: 'presentation',
 	waitOn: function () {
 		return [
@@ -49,10 +49,11 @@ Router.route('/:presentation', {
 		return { presentation: presentation, slides: slides };
 	},
 	onAfterAction: function() {
+		var slide = (this.params && this.params.slide) || undefined;
 		//Rerender the reveal deck
 		window.setTimeout(function() {
 			try {
-				Reveal.slide();
+				Reveal.slide(slide);
 			} catch(exc) {
 				//Known issue
 				//console.log(exc);

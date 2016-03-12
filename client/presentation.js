@@ -64,6 +64,11 @@ Template.presentation.onRendered(function() {
 	});
 
 	Reveal.addEventListener('slidechanged', function(event) {
+		Router.go('presentation', {
+			presentation: presentation._id,
+			slide: event.indexh
+		}, { replaceState:true });
+
 		Session.set('slide-number', event.indexh);
 		if(Meteor.userId() == presentation.owner) {
 			Presentations.update(presentation._id, {
