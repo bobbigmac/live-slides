@@ -13,12 +13,15 @@ Meteor.publish('presentations', function(ids) {
 	ids = (ids instanceof Array && ids.length && ids) || [];
 
 	var filter = {
-		$or: [
-			{ open: true },
-		]
 	};
 
-	if(this.userId) {
+	if(!ids) {
+		filter['$or'] = filter['$or'] || [];
+		filter['$or'].push({ open: true });
+	}
+
+	if(this.userId && !ids.length) {
+		filter['$or'] = filter['$or'] || [];
 		filter['$or'].push({ owner: this.userId });
 	}
 

@@ -1,11 +1,5 @@
 
 
-Template.slide.helpers({
-	'editMode': function() {
-		return Session.get('editMode');
-	},
-});
-
 Template.presentationTitle.helpers({
 	'momentCreatedAgo': function() {
 		return new moment(this.created).fromNow();
@@ -19,27 +13,41 @@ var revealSettings = {
   autoSlide: 0, //5000,
   dependencies: [
     // Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
-    //{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-
-    // Interpret Markdown in <section> elements
-    // { src: 'client-libs/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-    // { src: 'client-libs/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-
-    // Syntax highlight for <code> elements
-    //{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-
-    // Speaker notes
-    //{ src: 'plugin/notes/notes.js', async: true },
+    { src: 'client-libs/classList.js', condition: function() { return !document.body.classList; } },
 	]
 };
 
-var refreshReveal = function() {
+var cancelEditMode = function(event) {
+	//console.log(event.which);
+	if(event.which == 27) {
+		Session.set('editMode', false);
+	}
+};
+
+var followPresentation = function(id, presentation) {
+	if(presentation && Meteor.userId() != presentation.owner) {
+		//console.log('user is not owner');
+		if(!Session.get('hold-follow')) {
+			var pos = Reveal.getIndices();
+			var h = pos && pos.h;
+			//console.log(pos, h, presentation.indexh);
+			if(h != presentation.indexh) {
+				Reveal.slide(presentation.indexh);
+			}
+		}
+	}
+};
+
+var refreshReveal = function(id, fields) {
 	window.setTimeout(function() {
 		Reveal.sync();
 	}, 10);
 };
 
 Template.presentation.onRendered(function() {
+	var presentation = this.data && this.data.presentation;
+
+	$(document).off('keyup', cancelEditMode).on('keyup', cancelEditMode);
 	//See https://github.com/hakimel/reveal.js#instructions
 	Reveal.initialize(revealSettings);
 
@@ -49,9 +57,21 @@ Template.presentation.onRendered(function() {
 		removed: refreshReveal
 	});
 
+	Presentations.find().observeChanges({
+		added: followPresentation,
+		changed: followPresentation,
+		//removed: refreshReveal
+	});
+
 	Reveal.addEventListener('slidechanged', function(event) {
-		//TODO: Update any remotes
-		//console.log('slide changed', event);
+		Session.set('slide-number', event.indexh);
+		if(Meteor.userId() == presentation.owner) {
+			Presentations.update(presentation._id, {
+				$set: {
+					indexh: event.indexh
+				}
+			});
+		}
 	});
 });
 

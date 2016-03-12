@@ -34,9 +34,11 @@
 					userCanEdit=editMode
 					wysiwyg=false}}
 		{{else}}
+			<div class="start-edit">
 {{#markdown}}
 {{this.content}}
 {{/markdown}}
+			</div>
 		{{/if}}
 	</section>
 </template>
