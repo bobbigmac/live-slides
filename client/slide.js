@@ -11,7 +11,14 @@ Template.newSlide.events({
 		if(type) {
 			//console.log(type, this);
 			this[type] = defaultTexts[type];
-			//console.log(type, this);
+			
+			if(typeof this.order == 'undefined') {
+				var newOrder = Slides.find({}, { sort: { order: 1, created: 1 }}).fetch().reduce(function(max, s) {
+					return (s.order && s.order > max ? s.order : max);
+				}, -1);
+				this.order = (newOrder + 1);
+			}
+
 			if(!this._id) {
 				Slides.insert(this);
 			} else {

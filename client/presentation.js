@@ -49,8 +49,13 @@ EditableText.registerCallbacks({
 
 var refreshReveal = function(id, fields) {
 	window.setTimeout(function() {
-		Reveal.sync();
-		Reveal.slide();
+		try {
+			Reveal.sync();
+			Reveal.slide();
+		} catch(exc) {
+			//TODO: Known issue
+			//console.log(exc);
+		}
 	}, 10);
 };
 
