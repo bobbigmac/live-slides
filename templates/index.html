@@ -129,4 +129,14 @@
 	<div class="reveal slides-container">
 		{{> slides slides}}
 	</div>
+	{{#if editMode}}
+		{{> slideMover}}
+	{{/if}}
+</template>
+
+<template name="slideMover">
+	<div class="slide-mover">
+		<a class="btn btn-link move-left"><i class="glyphicon glyphicon-chevron-left"></i></a>
+		<a class="btn btn-link move-right"><i class="glyphicon glyphicon-chevron-right"></i></a>
+	</div>
 </template>

@@ -11,6 +11,9 @@ var revealSettings = {
   controls: true,
   progress: true,
   autoSlide: 0, //5000,
+  transition: 'convex',
+  // transition: 'concave',
+  // transition: 'zoom',
   dependencies: [
     // Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
     { src: 'client-libs/classList.js', condition: function() { return !document.body.classList; } },
@@ -85,6 +88,58 @@ Template.presentation.onRendered(function() {
 			});
 		}
 	});
+});
+
+var moveSlide = function(pr, slides, direction) {
+	if(pr && slides && direction) {
+		var indexh = (pr && pr.indexh);
+		//console.log(indexh);
+		if(typeof indexh != 'undefined') {
+			var curr = slides[indexh];
+			var swap = slides[indexh+direction];
+
+			if(curr && curr._id && swap && swap._id) {
+				if((curr.order || curr.order === 0) && (swap.order || swap.order === 0)) {
+					Slides.update(curr._id, { $set: { order: swap.order }});
+					Slides.update(swap._id, { $set: { order: curr.order }});
+				} else {
+					slides.forEach(function(slide, p) {
+						if(slide && slide._id) {
+							var newOrder = p;
+							if(slide._id == curr._id) {
+								newOrder = p + direction;
+							} else if(slide._id == swap._id) {
+								newOrder = p - direction;
+							}
+
+							Slides.update(slide._id, {
+								$set: { order: newOrder }
+							});
+						}
+					});
+				}
+
+				Meteor.setTimeout(function() {
+					if(direction > 0) {
+						Reveal.right();
+					} else {
+						Reveal.left();
+					}
+				}, 300);
+			}
+		}
+	}
+};
+
+Template.slideMover.events({
+	'click .move-left': function() {
+		var pr = (this.presentation && this.presentation);
+		moveSlide(pr, this.slides, -1);
+	},
+	'click .move-right': function() {
+		var pr = (this.presentation && this.presentation);
+		moveSlide(pr, this.slides, 1);
+	},
 });
 
 Template.nav.events({
