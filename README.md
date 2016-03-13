@@ -1,11 +1,31 @@
 # Live-Slides
 
-Add powerpoint-esque slides, reactively, by multiple collaborative users and animate between them.
+Add powerpoint-esque slides, reactively, and animate between them.
+
+Updates slide content in realtime.
+
+Allows viewer to follow progress of presenter.
+
+Allows viewer to raise questions to presenter, each is added as a slide at the end of the presentation where the presenter may add answers. Alerts are raised for new questions.
+
+Four types of slide are currently supported: 
+
+* Content: Markdown content
+
+* Image: Link to an image, uses full slide
+
+* IFrame: Embed a website (like youtube embed)
+
+* Question: Added from questions raised by viewers
 
 ## TODO:
 
-Everything, just a stub right now.
+UI Tweaks, improve button placements
 
-## Suggestions
+Multi-user editable presentations
+
+Fix some known issues with slide updates
+
+## Contributing
 
 PRs welcome. Should include example usage of package or suggested new functionality.
