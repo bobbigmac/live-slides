@@ -47,14 +47,15 @@ Router.route('/:presentation/:slide?', {
 		Session.set('first-questions-slide', slides.length);
 		questions = questions.fetch();
 
-		_.chunk(questions, 2).forEach(function(questions) {
+		questions.forEach(function(q) {
 			//Questions composite slide
-			var questionsSlide = { presentation: presentation && presentation._id, owner: Meteor.userId() };
-			questionsSlide.content = '#### Questions?\n\n' + questions.map(function(q) {
-				return q.text;
-			}).join('\n\n___\n\n');
+			//var questionsSlide = { question: q.text, answer: q.answer, presentation: presentation && presentation._id };
+			//questionsSlide.question = q.text;
+			q.question = q.text;
+			q.answer = q.answer || 'Unanswered';
+			q.owner = presentation.owner;
 
-			slides.push(questionsSlide);
+			slides.push(q);
 		});
 
 		var owner = (presentation && presentation.owner);

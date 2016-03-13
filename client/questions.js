@@ -3,6 +3,21 @@ Template.questions.events({
 	'click .to-questions': function() {
 		var firstQuestionSlide = Session.get('first-questions-slide');
 		Reveal.slide(firstQuestionSlide);
+	},
+	'click .ask-question': function() {
+		var presentation = (this.presentation && this.presentation._id);
+
+		bootbox.prompt("What's your question?", function(result) {
+			result = result && (''+result).trim();
+
+		  if (result) {
+		  	//console.log(presentation, result);
+		  	Questions.insert({ presentation: presentation, text: result })
+		  }
+		  else {
+		    // User did not confirm, do nothing.
+		  }
+		});
 	}
 });
 

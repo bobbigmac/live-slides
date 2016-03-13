@@ -76,19 +76,49 @@
 	</section>
 </template>
 
+<template name="questionSlide">
+	<section class="slide-container">
+		{{#if editMode}}
+			<p>{{this.question}}</p>
+			<hr />
+			{{> editableText 
+					context=this
+					collection="questions" 
+					field="answer"
+					textarea=true
+					useMethods=false
+					placeholder="Answer"
+					title="Answer this question"
+					userCanEdit=editMode
+					onStartEditing="refreshSlide"}}
+		{{else}}
+			<div class="start-edit">
+				<h4>Questions?</h4>
+				<p>{{this.question}}</p>
+				<hr />
+				<p>{{this.answer}}</p>
+			</div>
+		{{/if}}
+	</section>
+</template>
+
 <template name="slides">
 	<div class="slides">
 		{{#each this}}
-			{{#if this.content}}
-				{{> contentSlide this}}
+			{{#if this.question}}
+				{{> questionSlide this}}
 			{{else}}
-				{{#if this.url}}
-					{{> urlSlide this}}
+				{{#if this.content}}
+					{{> contentSlide this}}
 				{{else}}
-					{{#if this.image}}
-						{{> imageSlide this}}
+					{{#if this.url}}
+						{{> urlSlide this}}
 					{{else}}
-						{{> newSlide this}}
+						{{#if this.image}}
+							{{> imageSlide this}}
+						{{else}}
+							{{> newSlide this}}
+						{{/if}}
 					{{/if}}
 				{{/if}}
 			{{/if}}

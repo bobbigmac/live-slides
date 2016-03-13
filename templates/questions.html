@@ -6,12 +6,14 @@
 
 <template name="questions">
 	<div class="questions">
-		<a class="btn btn-link to-questions">
-			{{#if isOwner this.presentation.owner}}
+		{{#if isOwner this.presentation.owner}}
+			<a class="btn btn-link question-link to-questions">
 				{{this.questions.length}} Questions&hellip;
-			{{else}}
+			</a>
+		{{else}}
+			<a class="btn btn-link question-link ask-question">
 				Ask a question&hellip;
-			{{/if}}
-		</a>
+			</a>
+		{{/if}}
 	</div>
 </template>

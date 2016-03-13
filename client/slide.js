@@ -30,16 +30,27 @@ Template.newSlide.events({
 	}
 });
 
-Template.contentSlide.events({
-	'dblclick .start-edit': function() {
-		if(this.owner == Meteor.userId()) {
-			Session.set('editMode', true);
-		}
+var startEdit = function() {
+	if(this.owner == Meteor.userId()) {
+		Session.set('editMode', true);
 	}
+};
+var isEditMode = function() {
+	return Session.get('editMode');
+};
+
+Template.contentSlide.events({
+	'dblclick .start-edit': startEdit
 });
 
 Template.contentSlide.helpers({
-	'editMode': function() {
-		return Session.get('editMode');
-	},
+	'editMode': isEditMode
+});
+
+Template.questionSlide.events({
+	'dblclick .start-edit': startEdit
+});
+
+Template.questionSlide.helpers({
+	'editMode': isEditMode
 });
