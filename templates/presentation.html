@@ -1,0 +1,44 @@
+
+
+<template name="presentations">
+	{{#each this}}
+		{{> presentationTitle this}}
+	{{/each}}
+</template>
+
+<template name="presentationTitle">
+	<h3>
+		<a href="/{{_id}}">
+			<small class="pull-right">{{momentCreatedAgo}}</small>
+			<span>{{either title _id}}</span>
+		</a>
+	</h3>
+</template>
+
+<template name="presentationDetail">
+	{{> editableText 
+			context=presentation
+			collection="presentations" 
+			field="title" 
+			title="Name this presentation"
+			placeholder="Name this presentation"
+			options=bootstrapifyLarge }}
+</template>
+
+<template name="presentation">
+	<div class="reveal slides-container">
+		{{> slides slides}}
+	</div>
+	{{#if editMode}}
+		{{> slideMover}}
+	{{/if}}
+	{{> questions}}
+</template>
+
+
+<template name="slideMover">
+	<div class="slide-mover">
+		<a class="btn btn-link move-left"><i class="glyphicon glyphicon-chevron-left"></i></a>
+		<a class="btn btn-link move-right"><i class="glyphicon glyphicon-chevron-right"></i></a>
+	</div>
+</template>

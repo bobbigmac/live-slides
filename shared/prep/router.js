@@ -32,15 +32,30 @@ Router.route('/:presentation/:slide?', {
 		return [
 			currentUser,
 			Meteor.subscribe('presentations', [this.params.presentation]),
-			Meteor.subscribe('slides', this.params.presentation)
+			Meteor.subscribe('slides', this.params.presentation),
+			Meteor.subscribe('questions', this.params.presentation)
 		];
 	},
 	data: function() {
 		var presentation = Presentations.findOne({ _id: this.params.presentation });
 		var slides = Slides.find({ presentation: this.params.presentation }, { sort: { order: 1, created: 1 }});
+		var questions = Questions.find({ presentation: this.params.presentation }, { sort: { order: 1, created: 1 }});
 
 		Session.set('page-title', slides.count()+' slides: ' + (presentation && presentation.title));
 		slides = slides.fetch();
+
+		Session.set('first-questions-slide', slides.length);
+		questions = questions.fetch();
+
+		_.chunk(questions, 2).forEach(function(questions) {
+			//Questions composite slide
+			var questionsSlide = { presentation: presentation && presentation._id, owner: Meteor.userId() };
+			questionsSlide.content = '#### Questions?\n\n' + questions.map(function(q) {
+				return q.text;
+			}).join('\n\n___\n\n');
+
+			slides.push(questionsSlide);
+		});
 
 		var owner = (presentation && presentation.owner);
 		if(Meteor.userId() == owner) {
@@ -49,7 +64,11 @@ Router.route('/:presentation/:slide?', {
 			slides.push(newSlide);
 		}
 		
-		return { presentation: presentation, slides: slides };
+		return {
+			presentation: presentation, 
+			slides: slides, 
+			questions: questions, 
+		};
 	},
 	onAfterAction: function() {
 		var slide = (this.params && this.params.slide) || undefined;

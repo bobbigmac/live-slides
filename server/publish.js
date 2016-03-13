@@ -9,6 +9,16 @@ Meteor.publish('slides', function(presentation) {
 	return;
 });
 
+Meteor.publish('questions', function(presentation) {
+	presentation = (typeof presentation == 'string' && presentation.length && presentation) || false;
+	if(presentation) {
+		return Questions.find({ presentation: presentation });
+	}
+
+	this.ready();
+	return;
+});
+
 Meteor.publish('presentations', function(ids) {
 	ids = (ids instanceof Array && ids.length && ids) || [];
 

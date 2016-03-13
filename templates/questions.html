@@ -1,0 +1,17 @@
+
+
+<template name="question">
+	<div>{{text}}</div>
+</template>
+
+<template name="questions">
+	<div class="questions">
+		<a class="btn btn-link to-questions">
+			{{#if isOwner this.presentation.owner}}
+				{{this.questions.length}} Questions&hellip;
+			{{else}}
+				Ask a question&hellip;
+			{{/if}}
+		</a>
+	</div>
+</template>
