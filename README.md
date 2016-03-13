@@ -2,6 +2,8 @@
 
 Add powerpoint-esque slides, reactively, and animate between them.
 
+[Video: https://youtu.be/gzvfc_QRE9M](https://youtu.be/gzvfc_QRE9M)
+
 Updates slide content in realtime.
 
 Allows viewer to follow progress of presenter.
