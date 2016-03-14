@@ -6,16 +6,25 @@
 	z-index: 4;
 
 	a.question-link {
-		font-size: 1.4em;
-		color: #e7ad52;
-		&:hover, &:active {
-			color: #f3d7ac;
+		font-size: 1.5em;
+		&.btn-link {
+			color: #e7ad52;
+			&:hover, &:active {
+				color: #f3d7ac;
+			}
 		}
 	}
 }
 .modal {
 	color: black;
+	.modal-title {
+		font-size: 1.4em;
+	}
 	.modal-body {
-		font-size: 2em;
+		.bootbox-input.bootbox-input-text.form-control {
+	    font-size: 2em !important;
+	    line-height: 2.1em !important;
+	    height: auto !important;
+		}
 	}
 }
