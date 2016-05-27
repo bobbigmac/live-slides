@@ -3,7 +3,8 @@
 Security.defineMethod("removePresentationSlides", {
   fetch: [],
   deny: function (type, arg, userId, doc) {
-    Slides.remove({ presentation: doc.presentation });
+    console.log('removing slides for presentation', doc._id);
+    Slides.remove({ presentation: doc._id });
     
     return false;
   }

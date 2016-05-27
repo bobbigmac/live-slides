@@ -12,7 +12,6 @@ iron:router
 accounts-password
 ongoworks:security
 alanning:roles
-standard-minifiers
 meteor-base
 mobile-experience
 mongo
@@ -34,3 +33,5 @@ markdown
 juliancwirko:s-alert
 juliancwirko:s-alert-genie
 mizzao:bootboxjs
+standard-minifier-css
+standard-minifier-js
