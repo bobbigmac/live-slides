@@ -98,13 +98,14 @@ Template.presentation.onRendered(function() {
 var moveSlide = function(pr, slides, direction) {
 	if(pr && slides && direction) {
 		var indexh = (pr && pr.indexh);
-		//console.log(indexh);
+		console.log(indexh);
 		if(typeof indexh != 'undefined') {
 			var curr = slides[indexh];
 			var swap = slides[indexh+direction];
 
 			if(curr && curr._id && swap && swap._id) {
-				if((curr.order || curr.order === 0) && (swap.order || swap.order === 0)) {
+				if(false && (curr.order || curr.order === 0) && (swap.order || swap.order === 0)) {
+					// console.log(curr, swap);
 					Slides.update(curr._id, { $set: { order: swap.order }});
 					Slides.update(swap._id, { $set: { order: curr.order }});
 				} else {
